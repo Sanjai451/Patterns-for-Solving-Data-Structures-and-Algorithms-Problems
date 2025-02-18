@@ -453,6 +453,7 @@ findMaxInBitonicArray([10, 9, 8]);
 
 - Since, we are reducing the search range by half at every step, this means the time complexity of our algorithm will be `O(logN)` where `N` is the total elements in the given array.
 - The algorithm runs in constant space `O(1)`.
+  
 ## 🌟 Search Bitonic Array (medium)
 > Given a Bitonic array, find if a given `key` is present in it. An array is considered bitonic if it is monotonically increasing and then monotonically decreasing. Monotonically increasing or decreasing means that for any index `i` in the array `arr[i] != arr[i+1]`.
 > 
@@ -546,6 +547,32 @@ searchBitonicArray([1, 3, 8, 12], 12);
 searchBitonicArray([10, 9, 8], 10);
 //0
 ````
+````java
+public class bitonicBinary {
+
+    public static void main(String[] args) {
+        int[] test1 = {1,2,3,4,5,6};
+        int[] test2 = {4,5,6,1,2,3};
+        int[] test3 = {5,6,1,2,3,4};
+
+        System.out.println(searchMaxFromBitonicArrayUsingBinary(test1, 0, test1.length));
+        System.out.println(searchMaxFromBitonicArrayUsingBinary(test2, 0, test2.length));
+        System.out.println(searchMaxFromBitonicArrayUsingBinary(test3, 0, test3.length));
+    }
+    public static int searchMaxFromBitonicArrayUsingBinary(int[] arr, int start, int end){ //get max value
+        end = end-1;
+        while(start <= end){
+            if(arr[start] > arr[start+1]) return arr[start];
+            else if(arr[end] < arr[end - 1]) return arr[end - 1];
+            else{
+                start++; end--;
+            }
+        }
+        return arr[arr.length-1];
+    }
+}
+````
+
 - Since, we are reducing the search range by half at every step, this means the time complexity of our algorithm will be `O(logN)` where `N` is the total elements in the given array.
 - The algorithm runs in constant space `O(1)`.
 ## 🌟 Search in Rotated Array (medium)
