@@ -363,13 +363,32 @@ searchInInfiniteArray(reader, 200); //-1, The key is not present in the array.
 
 - The algorithm runs in constant space `O(1)`.
 
-## Minimum Difference Element (medium)
+## Minimum Difference Element (medium) - Can be solved without binary if unsorted 
 https://leetcode.com/problems/minimum-absolute-difference/
 > Given an array of numbers sorted in ascending order, find the element in the array that has the minimum difference with the given `key`.
 
 The problem follows the <b>Binary Search</b> pattern. Since <b>Binary Search</b> helps us find a number in a sorted array efficiently, we can use a modified version of the <b>Binary Search</b> to find the number that has the minimum difference with the given `key`.
 
 We can use a similar approach as discussed in <b>Order-agnostic Binary Search</b>. We will try to search for the `key` in the given array. If we find the `key` we will return it as the minimum difference number. If we can’t find the `key`, (at the end of the loop) we can find the differences between the `key` and the numbers pointed out by indices `start` and `end`, as these two numbers will be closest to the `key`. The number that gives minimum difference will be our required number.
+````java
+class Solution {
+    public List<List<Integer>> minimumAbsDifference(int[] arr) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(arr);
+
+        int mindiff = Integer.MAX_VALUE;
+        for(int i=1;i<arr.length;i++){
+            mindiff = Math.min(mindiff, arr[i] - arr[i -1]);
+        }
+        for(int i=1;i<arr.length;i++){
+            if(arr[i] - arr[i-1] == mindiff){
+                res.add(Arrays.asList(arr[i-1], arr[i]));
+            }
+        }
+        return res;
+    }
+}
+````
 ````js
 function searchMinDiffElement(arr, key) {
   let start = 0;
@@ -410,6 +429,8 @@ searchMinDiffElement([1, 3, 8, 10, 15], 12);
 searchMinDiffElement([4, 6, 10], 17);
 //10
 ````
+
+
 - Since, we are reducing the search range by half at every step, this means the time complexity of our algorithm will be `O(logN)` where `N` is the total elements in the given array.
 - The algorithm runs in constant space `O(1)`.
 ## Bitonic Array Maximum (easy)
